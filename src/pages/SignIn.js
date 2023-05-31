@@ -5,13 +5,12 @@ import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import Modal from "@mui/material/Modal";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import googleIcon from "../assets/images/googleIcon.png";
 import facebookIcon from "../assets/images/facebookIcon.png";
 import appleIcon from "../assets/images/appleIcon.png";
-// import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function SignIn() {
   const [values, setValues] = React.useState({
@@ -28,6 +27,10 @@ export default function SignIn() {
   //   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
+      <Helmet>
+        <title>Sign In</title>
+        <meta name="description" content="Sign In" />
+      </Helmet>
       <Grid container spacing={1} lg={12} md={12} xs={12}>
         <Grid item lg={10} md={10} xs={12} className="m-auto d-flex">
           <Grid item lg={6} md={6} xs={12}>
@@ -62,12 +65,13 @@ export default function SignIn() {
                         Password
                       </Typography>
                       <Input
-                        type="text"
-                        name="email"
-                        id="email"
+                        // type="text"
+                        name="password"
+                        id="password"
                         className="form-control input-group m-b-0 inputcontrasts mt-5"
                         margin="normal"
-                        placeholder="Enter email address"
+                        placeholder="Enter password"
+                        type={values.showPassword ? "text" : "password"}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -109,11 +113,14 @@ export default function SignIn() {
                       <Button className="btn primary-button w-100">Sign In</Button>
                     </Typography>
                     <Typography className="mt-20 text-center">
+                      <span className="f-14 font-weight-500">
+                        New Member?&nbsp;
+                      </span>
                       <Link
                         className="link-color f-14 font-weight-500 text-decor-none"
                         to="../signup"
                       >
-                        Create a new account
+                        Sign up Now
                       </Link>
                     </Typography>
                     <Typography className="mt-15 d-flex align-center job-detail-align">
@@ -122,7 +129,7 @@ export default function SignIn() {
                       <span className="horizontal-line"></span>
                     </Typography>
                     <Grid container spacing={1} lg={12} md={12} xs={12} className="mt-20">
-                        <Grid item lg={10} md={10} xs={10} className="m-auto d-flex align-center justify-center">
+                      <Grid item lg={10} md={10} xs={10} className="m-auto d-flex align-center justify-center">
                         <Typography className="d-flex align-center social-login">
                           <img
                             src={facebookIcon}
@@ -135,7 +142,7 @@ export default function SignIn() {
                           </Box>
                         </Typography>
                         <Typography className="d-flex align-center social-login" sx={{ mx: 3 }}>
-                        <img
+                          <img
                             className="contrasts socialcontrasts"
                             src={googleIcon}
                             alt="Google Icon"
@@ -147,7 +154,7 @@ export default function SignIn() {
                           </Box>
                         </Typography>
                         <Typography className="d-flex align-center social-login">
-                        <img
+                          <img
                             className="contrasts"
                             src={appleIcon}
                             alt="Apple Icon"
@@ -158,7 +165,7 @@ export default function SignIn() {
                             Apple
                           </Box>
                         </Typography>
-                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -17,3 +17,9 @@
       }
     }
   }
+  .MuiInputBase-root::before{
+    border-bottom: 1px solid transparent !important;
+  }
+  .MuiInputBase-root::after{
+    border-bottom: 1px solid transparent !important;
+  }
