@@ -5,8 +5,11 @@
 .secondary-color{
     color: $secondary-color;
 }
-.text-gray{
+.gray-text{
     color: $gray;
+}
+.link-color{
+    color: $primary-color !important;
 }
 
 // Background color

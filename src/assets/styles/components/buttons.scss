@@ -1,0 +1,17 @@
+.btn{
+    &.primary-button{
+      background: var(--primary-color) !important;
+      font-size: 14px;
+      font-weight:600;
+      padding:8px 28px;
+      text-transform: none;
+      box-shadow: none;
+      border-radius: 6px;
+      color: #FFFFFF !important;
+    //   font-family: $font-family;
+      &:hover{
+        background: var(--primary-color) !important;
+        box-shadow: none !important;
+      }
+    }
+  }

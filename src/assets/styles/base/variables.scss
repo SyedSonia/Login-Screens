@@ -1,7 +1,7 @@
 $font-family: 'Inter', sans-serif;
 
 // Colors
-$primary-color: #45AC8B;
+$primary-color: #445bc7;
 $secondary-color:#F0FFFA ;
 $success-color:#2D715B;
 $white-color: #FFFFFF;
@@ -9,7 +9,7 @@ $danger-color:#B42318;
 $gray:#696871;
 
 // Background colors
-$primary-bg-color: #45AC8B;
+$primary-bg-color: #445bc7;
 $secondary-bg-color: #F0FFFA ;
 $bg-white: #FFFFFF;
 $bg-grey: #F7F7FB;
@@ -18,3 +18,7 @@ body {
 padding-right: 0 !important;
    overflow: auto !important;
 }
+:root {
+   --primary-color:#445bc7;
+   --secondary-color:#F0FFFA;
+ }
