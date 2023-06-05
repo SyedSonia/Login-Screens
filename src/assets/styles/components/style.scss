@@ -9,3 +9,10 @@
     border: 1px solid $gray;
     border-radius: 6px;
 }
+.MuiCheckbox-root{
+    padding-top: 7px !important;
+    padding-left: 0px !important;
+    &.Mui-checked {
+        color: $primary-color !important;
+    }
+}

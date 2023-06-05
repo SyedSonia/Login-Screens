@@ -1,8 +1,7 @@
 import logo from './logo.svg';
 import './App.scss';
 import React from "react";
-import { Route, Routes } from 'react-router-dom';
-import SignIn from './pages/SignIn';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 const PublicPortal = React.lazy(() => import("./pages/index"));
 
 
@@ -35,8 +34,20 @@ function App() {
     //   </header>
     // </div>
     <>
-      {/* <PublicPortal /> */}
-      <SignIn />
+      <div>
+        <React.Suspense>
+          <Routes>
+            <Route
+              path="/*"
+              element={
+                <React.Suspense fallback="">
+                  <PublicPortal />
+                </React.Suspense>
+              }
+            />
+          </Routes>
+        </React.Suspense>
+      </div>
     </>
   );
 }
