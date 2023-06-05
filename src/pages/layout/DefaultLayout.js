@@ -9,7 +9,7 @@ export default function DefaultLayout() {
         <>
             <Grid className="align-item-center min-h-100">
                 <Grid container spacing={1} lg={12} md={12} xs={12}>
-                    <Grid item lg={12} md={12} xs={12}>
+                    <Grid item lg={10} md={10} xs={12} className="ml-auto">
                         <Typography className="d-flex justify-center">
                             <img width="80px" src={logo} alt="img" />
                         </Typography>
@@ -19,7 +19,7 @@ export default function DefaultLayout() {
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} lg={12} md={12} xs={12}>
-                    <Grid item lg={10} md={10} xs={12} className="align-item-center min-h-100 m-auto">
+                    <Grid item lg={10} md={10} xs={12} className="align-item-center min-h-100">
                         <Outlet />
                     </Grid>
                 </Grid>

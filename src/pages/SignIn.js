@@ -114,7 +114,7 @@ export default function SignIn() {
                                     className="link-color f-14 font-weight-500 text-decor-none"
                                     to="../signup"
                                 >
-                                    Sign up Now
+                                    Sign Up Now
                                 </Link>
                             </Typography>
                             <Typography className="mt-15 d-flex align-center job-detail-align">

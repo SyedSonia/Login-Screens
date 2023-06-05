@@ -7,16 +7,6 @@ const PublicPortal = React.lazy(() => import("./pages/index"));
 
 function App() {
   return (
-    // <>
-    //   <Routes>
-    //     <Route 
-    //       path="/*"
-    //       element={
-    //         <PublicPortal />
-    //       }
-    //     />
-    //   </Routes>
-    // </>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />

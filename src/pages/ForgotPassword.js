@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "@mui/material/Input";
 import { Helmet } from "react-helmet";
 
 export default function ForgotPassword() {
+    const navigate = useNavigate();
+    const goToCreatePassword = () => {
+        navigate("/createpassword");
+      };
     return (
         <>
             <Helmet>
@@ -34,7 +38,7 @@ export default function ForgotPassword() {
                                     placeholder="Enter email address"
                                 />
                             </Box>
-                            <Typography className="mt-30">
+                            <Typography className="mt-30" onClick={goToCreatePassword}>
                                 <Button className="btn primary-button w-100">Submit</Button>
                             </Typography>
                             <Typography className="mt-20 text-center">

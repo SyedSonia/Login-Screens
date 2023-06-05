@@ -6,6 +6,7 @@ import DefaultLayout from "./layout/DefaultLayout";
 const SignIn = React.lazy(() => import("./SignIn"));
 const SignUp = React.lazy(() => import("./SignUp"));
 const ForgotPassword = React.lazy(() => import("./ForgotPassword"));
+const CreatePassword = React.lazy(() => import("./CreatePassword"));
 
 const PublicPortal = () => {
     return (
@@ -34,6 +35,14 @@ const PublicPortal = () => {
                             element={
                                 <React.Suspense fallback={<></>}>
                                     <ForgotPassword />
+                                </React.Suspense>
+                            }
+                        />
+                        <Route
+                            path="/createpassword"
+                            element={
+                                <React.Suspense fallback={<></>}>
+                                    <CreatePassword />
                                 </React.Suspense>
                             }
                         />
