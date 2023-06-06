@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -12,10 +12,18 @@ import facebookIcon from "../assets/images/facebookIcon.png";
 import appleIcon from "../assets/images/appleIcon.png";
 import { Helmet } from "react-helmet";
 import Checkbox from '@mui/material/Checkbox';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function SignUp() {
+  const [err, setErr] = React.useState("");
+  const inputRef = useRef();
+  let location = useLocation();
+  const search = location.search;
+  let searchParams = new URLSearchParams(search);
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
@@ -26,6 +34,28 @@ export default function SignUp() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Please enter valid email address")
+      .matches(/^\w+\.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please enter valid email address'),
+
+    password: Yup.string()
+      .required("Please enter your password")
+      .min(8, "The password must be at least 8 characters"),
+  });
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onChange",
+    defaultValues: {
+      email: decodeURIComponent(
+        searchParams.get("email") ? searchParams.get("email") : ""
+      ),
+    },
+  });
   return (
     <>
       <Helmet>
@@ -63,10 +93,15 @@ export default function SignUp() {
                   type="text"
                   name="email"
                   id="email"
-                  className="form-control input-group m-b-0 inputcontrasts mt-5"
+                  {...register("email")}
+                  className={`form-control input-group mb-0 inputcontrasts mt-5 ${errors.email ? "is-invalid" : ""}`}
                   margin="normal"
                   placeholder="Enter email address"
                 />
+                <span className="danger-color error-msg">
+                  {" "}
+                  {errors.email && errors.email.message}
+                </span>
               </Box>
               <Box>
                 <Typography className="f-14 font-weight-400 gray-text mt-15">
@@ -76,7 +111,11 @@ export default function SignUp() {
                   // type="text"
                   name="password"
                   id="password"
-                  className="form-control input-group m-b-0 inputcontrasts mt-5"
+                  inputRef={inputRef}
+                  onInput={() => setErr("")}
+                  {...register("password")}
+                  className={`form-control input-group mb-0 inputcontrasts mt-5 ${errors.password ? "is-invalid" : ""
+                    }`}
                   margin="normal"
                   placeholder="Enter password"
                   type={values.showPassword ? "text" : "password"}
@@ -107,6 +146,10 @@ export default function SignUp() {
                     </InputAdornment>
                   }
                 />
+                <span className="danger-color error-msg">
+                  {" "}
+                  {errors.password && errors.password.message}
+                </span>
               </Box>
               <Typography className="mt-10">
                 <Checkbox {...label} />
@@ -114,7 +157,15 @@ export default function SignUp() {
                 <Link className="link-color f-14 text-decor-none">&nbsp;Privacy Policy</Link>
               </Typography>
               <Typography className="mt-30">
-                <Button className="btn primary-button w-100">Sign Up</Button>
+                <Button
+                  type="submit"
+                  disabled={!isDirty || !isValid}
+                  className="btn primary-button w-100"
+                  variant="contained"
+                  aria-label="Sign in"
+                  disableRipple="true">
+                  Sign Up
+                </Button>
               </Typography>
               <Typography className="mt-20 text-center">
                 <span className="f-14 font-weight-500">

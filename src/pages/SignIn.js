@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -11,8 +11,16 @@ import googleIcon from "../assets/images/googleIcon.png";
 import facebookIcon from "../assets/images/facebookIcon.png";
 import appleIcon from "../assets/images/appleIcon.png";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function SignIn() {
+    const [err, setErr] = React.useState("");
+    const inputRef = useRef();
+    let location = useLocation();
+    const search = location.search;
+    let searchParams = new URLSearchParams(search);
     const [values, setValues] = React.useState({
         password: "",
         showPassword: false,
@@ -23,8 +31,27 @@ export default function SignIn() {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    //   const theme = useTheme();
-    //   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+          .required("Please enter valid email address")
+          .matches(/^\w+\.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please enter valid email address'),
+    
+        password: Yup.string()
+          .required("Please enter your password")
+          .min(8, "The password must be at least 8 characters"),
+      });
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onChange",
+    defaultValues: {
+      email: decodeURIComponent(
+        searchParams.get("email") ? searchParams.get("email") : ""
+      ),
+    },
+  });
     return (
         <>
             <Helmet>
@@ -34,7 +61,7 @@ export default function SignIn() {
             <Grid container spacing={1} lg={12} md={12} xs={12}>
                 <Grid item lg={10} md={10} xs={12} className="m-auto">
                     <Grid>
-                        <Typography className="f-24 font-weight-600">
+                        <Typography className="f-24 font-weight-600 font-family">
                             Welcome back!
                         </Typography>
                         <Typography className="mt-5 f-16 font-weight-400 gray-text">
@@ -49,10 +76,15 @@ export default function SignIn() {
                                     type="text"
                                     name="email"
                                     id="email"
-                                    className="form-control input-group m-b-0 inputcontrasts mt-5"
+                                    {...register("email")}
+                                    className={`form-control input-group mb-0 inputcontrasts mt-5 ${errors.email ? "is-invalid" : ""}`}
                                     margin="normal"
                                     placeholder="Enter email address"
                                 />
+                                <span className="danger-color error-msg">
+                                    {" "}
+                                    {errors.email && errors.email.message}
+                                </span>
                             </Box>
                             <Box>
                                 <Typography className="f-14 font-weight-400 gray-text mt-15">
@@ -62,7 +94,11 @@ export default function SignIn() {
                                     // type="text"
                                     name="password"
                                     id="password"
-                                    className="form-control input-group m-b-0 inputcontrasts mt-5"
+                                    inputRef={inputRef}
+                                    onInput={() => setErr("")}
+                                    {...register("password")}
+                                    className={`form-control input-group mb-0 inputcontrasts mt-5 ${errors.password ? "is-invalid" : ""
+                                        }`}
                                     margin="normal"
                                     placeholder="Enter password"
                                     type={values.showPassword ? "text" : "password"}
@@ -93,6 +129,10 @@ export default function SignIn() {
                                         </InputAdornment>
                                     }
                                 />
+                                <span className="danger-color error-msg">
+                                    {" "}
+                                    {errors.password && errors.password.message}
+                                </span>
                             </Box>
                             <Typography className="text-right mt-10 mb-10">
                                 <Link
@@ -104,7 +144,15 @@ export default function SignIn() {
                                 </Link>
                             </Typography>
                             <Typography className="mt-20">
-                                <Button className="btn primary-button w-100">Sign In</Button>
+                                <Button
+                                    type="submit"
+                                    disabled={!isDirty || !isValid}
+                                    className="btn primary-button w-100"
+                                    variant="contained"
+                                    aria-label="Sign in"
+                                    disableRipple="true">
+                                    Sign In
+                                </Button>
                             </Typography>
                             <Typography className="mt-20 text-center">
                                 <span className="f-14 font-weight-500">

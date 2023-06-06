@@ -1,14 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Input from "@mui/material/Input";
 import { Helmet } from "react-helmet";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function ForgotPassword() {
     const navigate = useNavigate();
+    let location = useLocation();
+    const search = location.search;
+    let searchParams = new URLSearchParams(search);
     const goToCreatePassword = () => {
         navigate("/createpassword");
-      };
+    };
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .required("Please enter valid email address")
+            .matches(/^\w+\.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please enter valid email address'),
+    });
+    const {
+        register,
+        formState: { errors, isValid, isDirty },
+    } = useForm({
+        resolver: yupResolver(validationSchema),
+        mode: "onChange",
+        defaultValues: {
+            email: decodeURIComponent(
+                searchParams.get("email") ? searchParams.get("email") : ""
+            ),
+        },
+    });
     return (
         <>
             <Helmet>
@@ -33,13 +56,26 @@ export default function ForgotPassword() {
                                     type="text"
                                     name="email"
                                     id="email"
-                                    className="form-control input-group m-b-0 inputcontrasts mt-5"
+                                    {...register("email")}
+                                    className={`form-control input-group mb-0 inputcontrasts mt-5 ${errors.email ? "is-invalid" : ""}`}
                                     margin="normal"
                                     placeholder="Enter email address"
                                 />
+                                <span className="danger-color error-msg">
+                                    {" "}
+                                    {errors.email && errors.email.message}
+                                </span>
                             </Box>
                             <Typography className="mt-30" onClick={goToCreatePassword}>
-                                <Button className="btn primary-button w-100">Submit</Button>
+                                <Button
+                                    type="submit"
+                                    disabled={!isDirty || !isValid}
+                                    className="btn primary-button w-100"
+                                    variant="contained"
+                                    aria-label="Sign in"
+                                    disableRipple="true">
+                                    Submit
+                                </Button>
                             </Typography>
                             <Typography className="mt-20 text-center">
                                 <span className="f-14 font-weight-500">
