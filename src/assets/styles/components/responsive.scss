@@ -1,0 +1,8 @@
+// Responsive
+
+// Mobile view
+@media screen and (min-width: 200px) and (max-width: 600px) {
+    .login-img {
+        display: none !important;
+    }
+}

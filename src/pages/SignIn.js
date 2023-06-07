@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
-import Modal from "@mui/material/Modal";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import googleIcon from "../assets/images/googleIcon.png";
@@ -33,25 +32,25 @@ export default function SignIn() {
     };
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-          .required("Please enter valid email address")
-          .matches(/^\w+\.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please enter valid email address'),
-    
+            .required("Please enter valid email address")
+            .matches(/^\w+\.?\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please enter valid email address'),
+
         password: Yup.string()
-          .required("Please enter your password")
-          .min(8, "The password must be at least 8 characters"),
-      });
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-    mode: "onChange",
-    defaultValues: {
-      email: decodeURIComponent(
-        searchParams.get("email") ? searchParams.get("email") : ""
-      ),
-    },
-  });
+            .required("Please enter your password")
+            .min(8, "The password must be at least 8 characters"),
+    });
+    const {
+        register,
+        formState: { errors, isValid, isDirty },
+    } = useForm({
+        resolver: yupResolver(validationSchema),
+        mode: "onChange",
+        defaultValues: {
+            email: decodeURIComponent(
+                searchParams.get("email") ? searchParams.get("email") : ""
+            ),
+        },
+    });
     return (
         <>
             <Helmet>

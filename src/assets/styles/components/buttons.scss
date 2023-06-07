@@ -7,7 +7,7 @@
     text-transform: none;
     box-shadow: none;
     border-radius: 6px;
-    color: #FFFFFF !important;
+    color: $white-color !important;
     font-family: $font-family !important;
     &:hover {
       background: var(--primary-color) !important;
