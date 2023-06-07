@@ -183,38 +183,38 @@ export default function SignUp() {
                 <Box className="gray-text f-14 font-weight-400 ml-5 mr-5">OR</Box>
                 <span className="horizontal-line"></span>
               </Typography>
-              <Grid container spacing={1} lg={12} md={12} xs={12} className="mt-20">
-                <Grid item lg={10} md={10} xs={10} className="m-auto d-flex align-center justify-center">
-                  <Typography className="d-flex align-center social-login">
+              <Grid container spacing={1} lg={12} md={12} xs={12} className="mt-20 social-login-mobile">
+                <Grid item lg={10} md={10} xs={12} className="m-auto d-flex align-center justify-center responsive-block">
+                  <Typography className="d-flex align-center social-login login-margin">
                     <img
                       className="contrasts socialcontrasts"
                       src={googleIcon}
                       alt="Google Icon"
                       aria-describedby="Google sign in"
-                      width="22px"
+                      width="20px"
                     />
                     <Box className="gray-text f-14 font-weight-500 ml-5">
                       Google
                     </Box>
                   </Typography>
-                  <Typography className="d-flex align-center social-login" sx={{ mx: 3 }}>
+                  <Typography className="d-flex align-center social-login facebook-align login-margin" sx={{ mx: 3 }}>
                     <img
                       src={facebookIcon}
                       alt="Facebook Icon"
                       aria-describedby="Facebook sign in"
-                      width="18px"
+                      width="16px"
                     />
                     <Box className="gray-text f-14 font-weight-500 ml-5">
                       Facebook
                     </Box>
                   </Typography>
-                  <Typography className="d-flex align-center social-login">
+                  <Typography className="d-flex align-center social-login login-margin">
                     <img
                       className="contrasts"
                       src={appleIcon}
                       alt="Apple Icon"
                       aria-describedby="Apple Id sign in"
-                      width="22px"
+                      width="20px"
                     />
                     <Box className="f-14 font-weight-500 ml-5 gray-text">
                       Apple
